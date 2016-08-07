@@ -49,6 +49,8 @@ For this project, we will only consider the effects of the number of prior spont
 
 ## How to use the Application
 
+https://hapstermeister.shinyapps.io/9_Data_Applications/
+
 To use the Shiny Application, select the number of prior spontaneous and induced abortions you have had and hit the "Submit" button. Based on these inputs, the application will calculate the risk of secondary infertility and the relative risk of secondary infertility (compared against women with infertility who have not had any abortions). 
 
 As you select the different combinations of inputs, you will see that the risk of second infertility increases more significantly as the number of prior spontaneous abortions increases. 
