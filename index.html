@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Risk of Secondary Infertility</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Risk of Secondary Infertility">
+  <meta name="author" content="Happy Hsin">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Risk of Secondary Infertility</h1>
+    <h2>The Effects of Prior Abortions (Spontaneous and Induced) on Secondary Infertility</h2>
+    <p>Happy Hsin<br/></p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Introduction</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Secondary infertility is among the most publicized possible complications of induced abortion. However data collected prior to 1973-1974 did not use control groups or into account the epidemiology of illegal abortion and they failed to show any effect on subsequent fertility. The dataset (&quot;infert&quot;) located in R contains data obtained in 1973-1974 from women with secondary infertility who were admitted to the Division of Fertility and Sterility of the First Department of Obstetrics and Gynaecology of the University of Athens Medical School. This dataset is used by the Shiny Application to determine the risk a woman has for secondary infertility as result of prior abortions (either spontaneous or induced). </p>
+
+<p>Data Source: Trichopoulos et al (1976) Br. J. of Obst. and Gynaec. 83, 645–650.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Data</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Since data prior to the Trichopoulous paper did not use control groups, the &quot;infert&quot; dataset includes two healthy control subjects from the same hospital with matching age, number of prior pregnancies, number of prior abortions (spontaneous or induced), and education levels for every patient suffering secondary inferility. In this dataset, stillborn deaths are considered spontaneous abortions and all induced abortions were illegal. </p>
+
+<p>The &quot;infert&quot; data includes multiple variables that could possibly affect the risk of secondary infertility. These variables include: 
+1. &quot;age&quot; (in years)
+2. &quot;parity&quot; (the number of prior pregnancies)
+3. &quot;education&quot; (0-5 years, 6-11 years, and 12+ years)
+4. &quot;spontaneous&quot; (number of prior spontaneous abortions incuding stillbirths)
+5. &quot;induced&quot; (number of prior illegally induced abortions)</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Exploratory Analysis</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">model &lt;- train(case ~ age + parity + education + spontaneous + induced, method = &quot;gbm&quot;, data = infert)
+</code></pre>
+
+<pre><code>##                    rel.inf
+## spontaneous      40.529579
+## parity           22.888052
+## age              16.307115
+## induced          15.429102
+## education6-11yrs  2.562721
+## education12+ yrs  2.283431
+</code></pre>
+
+<p>As we can see, the variables with the highest relative influence are: the number of prior spontaneous abortions, the number of prior pregnancies, and the number of prior induced abortions. </p>
+
+<p>For this project, we will only consider the effects of the number of prior spontaneous or induced abortions have on the risk of secondary infertility. In addition, we will not consider the case with 2 or more spontaneous and 2 or more induced abortions due to lack of sufficient data. </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>How to use the Application</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>To use the Shiny Application, select the number of prior spontaneous and induced abortions you have had and hit the &quot;Submit&quot; button. Based on these inputs, the application will calculate the risk of secondary infertility and the relative risk of secondary infertility (compared against women with infertility who have not had any abortions). </p>
+
+<p>As you select the different combinations of inputs, you will see that the risk of second infertility increases more significantly as the number of prior spontaneous abortions increases. </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Introduction'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Data'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Exploratory Analysis'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='How to use the Application'>
+         4
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

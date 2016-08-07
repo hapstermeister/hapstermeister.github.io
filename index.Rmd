@@ -1,0 +1,55 @@
+---
+title       : Risk of Secondary Infertility
+subtitle    : The Effects of Prior Abortions (Spontaneous and Induced) on Secondary Infertility
+author      : Happy Hsin
+job         : 
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets     : []            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+knit        : slidify::knit2slides
+---
+
+## Introduction
+
+Secondary infertility is among the most publicized possible complications of induced abortion. However data collected prior to 1973-1974 did not use control groups or into account the epidemiology of illegal abortion and they failed to show any effect on subsequent fertility. The dataset ("infert") located in R contains data obtained in 1973-1974 from women with secondary infertility who were admitted to the Division of Fertility and Sterility of the First Department of Obstetrics and Gynaecology of the University of Athens Medical School. This dataset is used by the Shiny Application to determine the risk a woman has for secondary infertility as result of prior abortions (either spontaneous or induced). 
+
+Data Source: Trichopoulos et al (1976) Br. J. of Obst. and Gynaec. 83, 645-650.
+
+--- .class #id 
+
+## Data
+
+Since data prior to the Trichopoulous paper did not use control groups, the "infert" dataset includes two healthy control subjects from the same hospital with matching age, number of prior pregnancies, number of prior abortions (spontaneous or induced), and education levels for every patient suffering secondary inferility. In this dataset, stillborn deaths are considered spontaneous abortions and all induced abortions were illegal. 
+
+The "infert" data includes multiple variables that could possibly affect the risk of secondary infertility. These variables include: 
+1. "age" (in years)
+2. "parity" (the number of prior pregnancies)
+3. "education" (0-5 years, 6-11 years, and 12+ years)
+4. "spontaneous" (number of prior spontaneous abortions incuding stillbirths)
+5. "induced" (number of prior illegally induced abortions)
+
+--- .class #id 
+
+## Exploratory Analysis
+
+```{r, results = 'hide', warning = FALSE}
+model <- train(case ~ age + parity + education + spontaneous + induced, method = "gbm", data = infert)
+```
+```{r, echo = FALSE, fig.show = 'hide'}
+summary(model)[2]
+```
+
+As we can see, the variables with the highest relative influence are: the number of prior spontaneous abortions, the number of prior pregnancies, and the number of prior induced abortions. 
+
+For this project, we will only consider the effects of the number of prior spontaneous or induced abortions have on the risk of secondary infertility. In addition, we will not consider the case with 2 or more spontaneous and 2 or more induced abortions due to lack of sufficient data. 
+
+--- .class #id 
+
+## How to use the Application
+
+To use the Shiny Application, select the number of prior spontaneous and induced abortions you have had and hit the "Submit" button. Based on these inputs, the application will calculate the risk of secondary infertility and the relative risk of secondary infertility (compared against women with infertility who have not had any abortions). 
+
+As you select the different combinations of inputs, you will see that the risk of second infertility increases more significantly as the number of prior spontaneous abortions increases. 
+
